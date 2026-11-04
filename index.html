@@ -1,0 +1,642 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Place Called Us ♡</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg:#0c090e;
+  --panel:#17111a;
+  --pink:#e9a9bf;
+  --soft:#c99aab;
+  --text:#f8edf2;
+  --muted:#a99aa5;
+  --border:#392634;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+ background:var(--bg);color:var(--text);
+ font-family:'DM Sans',sans-serif;
+ overflow-x:hidden;
+}
+body:before{
+ content:"";position:fixed;inset:0;pointer-events:none;
+ background-image:radial-gradient(#fff 0.7px,transparent 0.7px);
+ background-size:48px 48px;opacity:.15;z-index:0;
+}
+button{font-family:inherit;cursor:pointer}
+section{position:relative;z-index:1;padding:90px 20px}
+.container{width:min(850px,100%);margin:auto}
+.center{text-align:center}
+.eyebrow{
+ color:var(--pink);font-size:10px;
+ letter-spacing:4px;text-transform:uppercase;
+ margin-bottom:18px;
+}
+h1,h2,h3{font-family:'Playfair Display',serif;font-weight:400}
+h1{font-size:clamp(48px,11vw,88px);line-height:1.1}
+h2{font-size:clamp(34px,7vw,54px);margin-bottom:18px}
+h1 em,h2 em{color:var(--pink)}
+p{color:var(--muted);font-size:14px;line-height:1.9}
+.heart{color:var(--pink);font-size:25px;animation:pulse 2s infinite}
+@keyframes pulse{50%{transform:scale(1.2)}}
+.divider{height:1px;width:55px;background:var(--pink);margin:25px auto;opacity:.7}
+.btn{
+ border:1px solid var(--pink);color:var(--text);
+ background:transparent;border-radius:40px;
+ padding:14px 25px;font-size:11px;letter-spacing:2px;
+ transition:.3s;
+}
+.btn:hover{background:var(--pink);color:#190e16;transform:translateY(-3px)}
+.hero{
+ min-height:100svh;display:flex;align-items:center;
+ justify-content:center;text-align:center;padding:30px 20px;
+}
+.hero-content{max-width:650px}
+.hero p{max-width:420px;margin:20px auto 30px}
+.small-note{font-size:10px!important;letter-spacing:2px;margin-top:25px!important}
+nav{
+ position:sticky;top:0;z-index:10;
+ background:#0c090eea;backdrop-filter:blur(15px);
+ border-bottom:1px solid #30212d;
+ display:flex;justify-content:center;gap:20px;
+ padding:15px 8px;overflow-x:auto;
+}
+nav a{font-size:10px;color:var(--muted);text-decoration:none;white-space:nowrap}
+nav a:hover{color:var(--pink)}
+.card{
+ background:linear-gradient(145deg,#1d1520,#110d13);
+ border:1px solid var(--border);border-radius:18px;
+ padding:30px;
+}
+.intro-card{text-align:center;max-width:650px;margin:auto}
+.intro-card p{margin-top:15px}
+.timeline{margin-top:40px;position:relative}
+.timeline:before{
+ content:"";position:absolute;left:15px;top:8px;bottom:8px;
+ width:1px;background:#654052;
+}
+.event{position:relative;padding:0 0 35px 48px}
+.event:before{
+ content:"♡";position:absolute;left:5px;top:0;
+ color:var(--pink);background:var(--bg);padding:3px;
+}
+.event small{color:var(--pink);letter-spacing:2px;font-size:10px}
+.event h3{font-size:23px;margin:7px 0}
+.event p{font-size:13px}
+.letters{
+ display:grid;grid-template-columns:repeat(3,1fr);
+ gap:13px;margin-top:38px;
+}
+.envelope{
+ background:var(--panel);border:1px solid var(--border);
+ border-radius:14px;padding:23px 10px;
+ text-align:center;color:var(--text);
+ transition:.3s;min-height:135px;
+}
+.envelope:hover{
+ transform:translateY(-5px);border-color:var(--pink);
+ background:#241722;
+}
+.envelope .symbol{font-size:26px;color:var(--pink);margin-bottom:12px}
+.envelope h3{font-size:16px}
+.envelope span{display:block;color:var(--muted);font-size:9px;margin-top:7px;letter-spacing:1px}
+.modal{
+ position:fixed;inset:0;z-index:30;
+ background:#08060beF;display:none;
+ align-items:center;justify-content:center;
+ padding:18px;overflow-y:auto;
+}
+.modal.open{display:flex}
+.modal-box{
+ width:min(600px,100%);max-height:85vh;overflow-y:auto;
+ background:linear-gradient(145deg,#241722,#100d13);
+ border:1px solid #674255;border-radius:20px;
+ padding:35px 27px;position:relative;
+ animation:appear .35s ease;
+}
+@keyframes appear{
+ from{opacity:0;transform:translateY(20px) scale(.98)}
+ to{opacity:1;transform:translateY(0) scale(1)}
+}
+.modal-box h2{font-size:34px;color:var(--pink)}
+.modal-box .letter-body{
+ font-family:'Playfair Display',serif;
+ color:#e1cdd6;font-size:16px;line-height:2;
+ white-space:pre-line;margin-top:22px;
+}
+.close{
+ position:absolute;right:18px;top:15px;
+ background:none;border:none;color:var(--pink);
+ font-size:25px;
+}
+.signature{color:var(--pink);font-style:italic;margin-top:25px;font-family:'Playfair Display',serif;font-size:21px}
+.things{
+ display:grid;grid-template-columns:repeat(2,1fr);
+ gap:12px;margin-top:35px;
+}
+.thing{
+ border:1px solid var(--border);border-radius:15px;
+ padding:25px 15px;background:var(--panel);
+ text-align:center;
+}
+.thing span{font-size:25px;color:var(--pink)}
+.thing h3{font-size:20px;margin:12px 0 7px}
+.thing p{font-size:12px}
+.future{
+ background:linear-gradient(145deg,#241722,#110d13);
+ border:1px solid var(--border);padding:35px;
+ border-radius:18px;margin-top:30px;
+}
+.future p{margin:15px auto;max-width:500px}
+.final{min-height:75vh;display:flex;align-items:center}
+footer{
+ position:relative;z-index:1;text-align:center;
+ padding:30px 15px;border-top:1px solid var(--border);
+ color:var(--muted);font-size:10px;letter-spacing:3px;
+}
+.reveal{opacity:0;transform:translateY(20px);transition:.8s}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.floating{
+ position:fixed;bottom:-30px;z-index:2;
+ pointer-events:none;color:var(--pink);
+ animation:float 8s linear forwards;opacity:.5;
+}
+@keyframes float{to{transform:translateY(-110vh) rotate(40deg);opacity:0}}
+@media(max-width:600px){
+ section{padding:70px 17px}
+ .letters{grid-template-columns:repeat(2,1fr);gap:10px}
+ .envelope{min-height:125px}
+ .card{padding:24px 19px}
+ .things{gap:9px}
+ .thing{padding:20px 10px}
+}
+</style>
+</head>
+
+<body>
+
+<!-- WELCOME -->
+<section class="hero" id="home">
+ <div class="hero-content">
+  <div class="eyebrow">A little world made for you</div>
+  <div class="heart">♡</div>
+  <h1>A Place<br>Called <em>Us.</em></h1>
+  <p>
+   Not everything beautiful needs to be seen by the world.
+   Some things deserve their own little universe.
+   And this one is yours.
+  </p>
+  <button class="btn" onclick="enterWorld()">ENTER YOUR LITTLE WORLD ♡</button>
+  <p class="small-note">MADE WITH LOVE · BHAVESH</p>
+ </div>
+</section>
+
+<nav>
+ <a href="#story">OUR STORY</a>
+ <a href="#letters">15 LETTERS</a>
+ <a href="#little">LITTLE THINGS</a>
+ <a href="#future">OUR FUTURE</a>
+ <a href="#last">ONE LAST THING</a>
+</nav>
+
+<!-- INTRO -->
+<section id="story">
+ <div class="container reveal center">
+  <div class="eyebrow">A small introduction</div>
+  <h2>For my <em>favourite human.</em></h2>
+  <div class="divider"></div>
+  <div class="card intro-card">
+   <div class="heart">♡</div>
+   <p>
+    Hi, Antara.<br><br>
+    I wanted to make you something different this year.
+    Something you could open, explore, read and revisit whenever you wanted.<br><br>
+    So I made this little place. It has letters, memories,
+    thoughts and things I don't always know how to put into words.<br><br>
+    Take your time. There's no rush here.
+   </p>
+   <p style="color:var(--pink);margin-top:22px">This little world is yours.</p>
+  </div>
+ </div>
+</section>
+
+<!-- OUR STORY -->
+<section id="storyline">
+ <div class="container reveal">
+  <div class="center">
+   <div class="eyebrow">Chapter 01</div>
+   <h2>How it <em>began.</em></h2>
+   <p>Some beginnings look ordinary until they become important.</p>
+  </div>
+  <div class="timeline">
+   <div class="event">
+    <small>06 JUNE 2026</small>
+    <h3>A simple hello.</h3>
+    <p>It started with an ordinary Reddit conversation. Just a hello, without knowing how much that little interaction would eventually mean.</p>
+   </div>
+   <div class="event">
+    <small>06 JUNE 2026</small>
+    <h3>Four minutes later.</h3>
+    <p>We exchanged Instagram accounts. A little beginning that turned into conversations I would look forward to every day.</p>
+   </div>
+   <div class="event">
+    <small>17 AUGUST 2026</small>
+    <h3>A face to remember.</h3>
+    <p>Our first video call. A moment that made the person behind all those conversations feel even closer.</p>
+   </div>
+   <div class="event">
+    <small>05 NOVEMBER 2026</small>
+    <h3>Your special day.</h3>
+    <p>And now, another beautiful chapter begins. This time, the whole little world is celebrating you.</p>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- LETTERS -->
+<section id="letters">
+ <div class="container reveal">
+  <div class="center">
+   <div class="eyebrow">Chapter 02 · Open when you like</div>
+   <h2>Letters for <em>you.</em></h2>
+   <p>Fifteen little envelopes. Each one has something to tell you.</p>
+   <div class="divider"></div>
+   <p style="font-size:11px">TAP ANY ENVELOPE TO OPEN IT ♡</p>
+  </div>
+  <div class="letters" id="letterGrid"></div>
+ </div>
+</section>
+
+<!-- LITTLE THINGS -->
+<section id="little">
+ <div class="container reveal center">
+  <div class="eyebrow">Chapter 03</div>
+  <h2>The little things <em>matter.</em></h2>
+  <p>It's the little details that make someone special.</p>
+  <div class="things">
+   <div class="thing"><span>♡</span><h3>Your smile</h3><p>One of those little things that can make an ordinary moment better.</p></div>
+   <div class="thing"><span>✧</span><h3>Your mind</h3><p>Your thoughts, your curiosity and the way you see things.</p></div>
+   <div class="thing"><span>☁</span><h3>Your presence</h3><p>Even an ordinary conversation can become something worth remembering.</p></div>
+   <div class="thing"><span>∞</span><h3>Your dreams</h3><p>I hope you always keep believing in the things you want to become.</p></div>
+   <div class="thing"><span>୨୧</span><h3>Your little habits</h3><p>All the tiny details that make you unmistakably you.</p></div>
+   <div class="thing"><span>☆</span><h3>Your existence</h3><p>Simply being yourself is already something worth celebrating.</p></div>
+  </div>
+ </div>
+</section>
+
+<!-- FUTURE -->
+<section id="future">
+ <div class="container reveal center">
+  <div class="eyebrow">Chapter 04</div>
+  <h2>There is so much <em>ahead.</em></h2>
+  <div class="future">
+   <div class="heart">∞</div>
+   <h2 style="font-size:34px">Not the end.<br><em>Just the beginning.</em></h2>
+   <p>
+    I want us to keep learning, growing, discovering new things
+    and becoming better versions of ourselves.<br><br>
+    I hope we get to experience countless ordinary days together.
+    The random conversations, the silly jokes, the difficult days
+    we learn to navigate and the beautiful moments we never want to forget.<br><br>
+    I don't expect life to be perfect. I just hope we keep choosing
+    patience, honesty, understanding and kindness.
+   </p>
+  </div>
+ </div>
+</section>
+
+<!-- FINAL -->
+<section class="final" id="last">
+ <div class="container reveal center">
+  <div class="eyebrow">The final page</div>
+  <div class="heart">♡</div>
+  <h2>Happy Birthday,<br><em>Antara.</em></h2>
+  <div class="divider"></div>
+  <p style="max-width:450px;margin:auto">
+   May this year bring you new adventures, beautiful opportunities,
+   peaceful days, genuine happiness and everything you've been hoping for.
+   Never forget how much you deserve to be celebrated.
+  </p>
+  <p style="color:var(--pink);margin-top:30px">
+   And if you ever need a little reminder of how special you are,
+   you know where to find this little place.
+  </p>
+  <div class="signature">With love, always. ♡</div>
+  <p style="margin-top:8px;color:var(--pink)">Bhavesh</p>
+  <button class="btn" style="margin-top:30px" onclick="openLetter(14)">
+   ONE MORE LITTLE SURPRISE ♡
+  </button>
+ </div>
+</section>
+
+<footer>
+ A PLACE CALLED US · BHAVESH × ANTARA
+ <br><br>MADE WITH LOVE · 2026
+</footer>
+
+<!-- LETTER MODAL -->
+<div class="modal" id="modal" onclick="outsideClose(event)">
+ <div class="modal-box">
+  <button class="close" onclick="closeLetter()">×</button>
+  <div class="eyebrow" id="modalNum">A LETTER FOR YOU</div>
+  <h2 id="modalTitle">Dear you,</h2>
+  <div class="letter-body" id="modalBody"></div>
+  <div class="signature">With love, Bhavesh ♡</div>
+  <div class="center" style="margin-top:30px">
+   <button class="btn" onclick="closeLetter()">CLOSE LETTER</button>
+  </div>
+ </div>
+</div>
+
+<script>
+
+// 15 PERSONAL LETTERS
+const letters = [
+{
+ title:"Open when you need a smile",
+ body:`Hey, you.
+
+First of all, here's a little reminder that you are allowed to have ordinary days. You don't need to achieve something extraordinary every single day to make your existence meaningful.
+
+I hope something makes you smile today. Maybe a silly joke, a random conversation, your favourite song or just a little moment of peace.
+
+And if nothing else works, remember that somewhere there is a person who thinks you're pretty wonderful.
+
+Now go find something to smile about. ♡`
+},
+{
+ title:"Open when you miss me",
+ body:`I wish I could make distance feel a little smaller.
+
+Until then, remember all our conversations, the random things we discuss and all the moments that made us laugh.
+
+You don't have to miss me silently. You can always tell me.
+
+And whenever we talk again, I hope it feels just as natural as it always does.
+
+Sending you the biggest little virtual heart. ♡`
+},
+{
+ title:"Open when you're sad",
+ body:`Hey Antara.
+
+You don't have to pretend to be okay all the time.
+
+Some days are simply difficult, and that's alright. You deserve patience, understanding and space to feel whatever you're feeling.
+
+Please don't measure your worth by one difficult day.
+
+Take a breath, be gentle with yourself and remember that tomorrow is another opportunity.
+
+You deserve kindness, especially from yourself.`
+},
+{
+ title:"Open when you can't sleep",
+ body:`It's late, isn't it?
+
+I hope your mind gets a little quieter and you find some peace.
+
+Put away the things that can wait until tomorrow. You don't need to figure out your entire life tonight.
+
+Let tomorrow handle tomorrow.
+
+For now, rest well, sleeping beauty.
+
+Goodnight. ♡`
+},
+{
+ title:"Open when you doubt yourself",
+ body:`I hope you never underestimate your own potential.
+
+You have so many things left to learn, discover and experience.
+
+You don't need to compare your journey with anyone else's.
+
+Your pace is your own. Your dreams are yours. Your story is still being written.
+
+Keep going, keep learning and please believe in yourself a little more.
+
+I believe you deserve every opportunity to become who you want to be.`
+},
+{
+ title:"Open when you need reassurance",
+ body:`A little reassurance for you.
+
+You matter. Your feelings matter. Your thoughts matter.
+
+You don't need to earn affection by being perfect, productive or happy all the time.
+
+You deserve honesty, consistency, respect and understanding.
+
+And I hope you always feel comfortable communicating what you need instead of keeping everything to yourself.
+
+You are important, Antara. Never forget that. ♡`
+},
+{
+ title:"Open when you feel lonely",
+ body:`Sometimes even surrounded by people, we can feel a little disconnected.
+
+I hope you remember that you don't always have to explain everything perfectly to be understood.
+
+You can share your random thoughts, your silly observations and even your quiet moments.
+
+I hope life keeps bringing you people who make you feel appreciated and understood.
+
+You deserve meaningful connections.`
+},
+{
+ title:"Open when you want to laugh",
+ body:`Okay, serious question.
+
+Why do we start conversations about one thing and somehow end up discussing fifteen completely unrelated topics?
+
+How do we manage to make the most random things interesting?
+
+I genuinely hope we never lose that ability.
+
+Here's to more nonsense, random jokes, unexpected discussions and conversations that somehow last forever.
+
+Stay silly. ♡`
+},
+{
+ title:"Open when you think about our beginning",
+ body:`6 June 2026.
+
+A simple hello on Reddit.
+
+Nothing particularly extraordinary about the message itself.
+
+Then Instagram, conversations, little details, random discussions and eventually something that became a meaningful part of my everyday life.
+
+It's interesting how we never really know which ordinary moment will become a favourite memory.
+
+I'm glad our paths crossed.`
+},
+{
+ title:"Open when you remember our first call",
+ body:`17 August 2026.
+
+Our first video call.
+
+A little milestone that deserves a place in this collection.
+
+After all the messages and conversations, finally having that moment felt different.
+
+I hope we get to create countless more memories, each one with its own little story.
+
+Some dates deserve to be remembered. This is one of them. ♡`
+},
+{
+ title:"Open when you need motivation",
+ body:`A reminder from me:
+
+Keep studying. Keep exploring. Keep questioning things.
+
+Don't let one disappointing result convince you that you aren't capable of something better.
+
+You have so much potential to explore, and I hope you never stop being curious.
+
+Celebrate your progress, learn from your mistakes and remember that growth takes time.
+
+I'm rooting for you.`
+},
+{
+ title:"Open when you need to feel appreciated",
+ body:`I appreciate the little things.
+
+The conversations. The random updates. The moments when you share something about your day.
+
+The way ordinary interactions slowly become familiar and meaningful.
+
+I appreciate the person behind the messages, not just the happy moments.
+
+And I hope you never feel that you need to become someone else to be appreciated.
+
+You being you is enough. ♡`
+},
+{
+ title:"Open when you want to know my dreams",
+ body:`I think about a future filled with ordinary beautiful things.
+
+Growing together, learning together, supporting each other's ambitions and celebrating even the smallest achievements.
+
+I dream of a relationship where friendship is just as important as love.
+
+Where we can be completely ourselves, communicate honestly and continue discovering life together.
+
+There is so much I hope we get to experience.
+
+And I hope we build it with patience.`
+},
+{
+ title:"Open when it's your birthday",
+ body:`HAPPY BIRTHDAY, ANTARA! ♡
+
+Today is about you.
+
+I hope you wake up feeling special, spend the day surrounded by happiness and receive all the appreciation you deserve.
+
+May your new year be filled with opportunities, new experiences, growth, laughter and beautiful surprises.
+
+I hope you achieve the things you've been working towards.
+
+And I hope you never forget that your life is worth celebrating, even on the most ordinary days.
+
+Have the most wonderful birthday.
+
+You deserve it. ♡`
+},
+{
+ title:"One last little surprise",
+ body:`Dear Antara,
+
+If you've opened this last letter, you've explored almost this entire little world.
+
+I made this because I wanted to give you something that wasn't just another birthday message.
+
+Something you could revisit. Something filled with thoughts, words and little pieces of our story.
+
+I cannot fit every feeling or every memory into a website.
+
+But I hope you can see the effort, the intention and the affection behind it.
+
+Thank you for being part of my story.
+
+And here's to all the chapters we haven't written yet.
+
+Happy Birthday, once again.
+
+With all my love,
+Bhavesh. ♡`
+}
+];
+
+const grid=document.getElementById("letterGrid");
+
+letters.forEach((letter,index)=>{
+ const el=document.createElement("button");
+ el.className="envelope";
+ el.innerHTML=`
+  <div class="symbol">✉</div>
+  <h3>${letter.title}</h3>
+  <span>LETTER ${String(index+1).padStart(2,"0")} · OPEN ♡</span>
+ `;
+ el.onclick=()=>openLetter(index);
+ grid.appendChild(el);
+});
+
+function openLetter(index){
+ const letter=letters[index];
+ document.getElementById("modalNum").textContent=
+  "LETTER "+String(index+1).padStart(2,"0")+" / 15";
+ document.getElementById("modalTitle").textContent=letter.title;
+ document.getElementById("modalBody").textContent=letter.body;
+ document.getElementById("modal").classList.add("open");
+ document.body.style.overflow="hidden";
+}
+
+function closeLetter(){
+ document.getElementById("modal").classList.remove("open");
+ document.body.style.overflow="";
+}
+
+function outsideClose(event){
+ if(event.target.id==="modal")closeLetter();
+}
+
+document.addEventListener("keydown",event=>{
+ if(event.key==="Escape")closeLetter();
+});
+
+function enterWorld(){
+ document.getElementById("story").scrollIntoView({behavior:"smooth"});
+}
+
+const observer=new IntersectionObserver(entries=>{
+ entries.forEach(entry=>{
+  if(entry.isIntersecting)entry.target.classList.add("visible");
+ });
+},{threshold:.1});
+
+document.querySelectorAll(".reveal").forEach(el=>observer.observe(el));
+
+function createFloating(){
+ const el=document.createElement("div");
+ el.className="floating";
+ el.textContent=Math.random()>.5?"♡":"✧";
+ el.style.left=Math.random()*100+"vw";
+ el.style.fontSize=(12+Math.random()*14)+"px";
+ document.body.appendChild(el);
+ setTimeout(()=>el.remove(),8000);
+}
+setInterval(createFloating,1500);
+
+</script>
+</body>
+</html>
